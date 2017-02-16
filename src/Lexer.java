@@ -56,9 +56,9 @@ class Lexer implements java_cup.runtime.Scanner {
    */
   private static final String ZZ_CMAP_PACKED = 
     "\11\0\1\3\1\2\1\0\1\3\1\1\22\0\1\3\13\0\1\22"+
-    "\3\0\1\4\11\4\1\17\1\23\1\0\1\20\3\0\32\5\4\0"+
-    "\1\5\1\0\1\14\3\5\1\7\3\5\1\12\2\5\1\15\1\11"+
-    "\1\13\1\16\2\5\1\10\1\5\1\6\6\5\1\0\1\21\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uff93\0";
+    "\3\0\12\5\1\17\1\23\1\0\1\20\3\0\32\4\4\0\1\4"+
+    "\1\0\1\14\3\4\1\7\3\4\1\12\2\4\1\15\1\11\1\13"+
+    "\1\16\2\4\1\10\1\4\1\6\6\4\1\0\1\21\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uff93\0";
 
   /** 
    * Translates characters to character classes
@@ -129,7 +129,7 @@ class Lexer implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\2\4\1\2\1\5\1\6\4\5\1\7"+
+    "\1\2\1\3\2\4\1\5\1\2\1\6\4\5\1\7"+
     "\3\5\1\10\1\2\1\11\1\12\1\13\26\0\1\4"+
     "\25\0\13\5\11\0\3\5\1\14\7\5\11\0\12\5"+
     "\1\15\24\0\1\16\10\0\4\5\1\17\6\5\11\0"+
@@ -295,7 +295,7 @@ class Lexer implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 112) {
+    while (i < 110) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);

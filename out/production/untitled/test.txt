@@ -1,1 +1,7 @@
 terminal  SATAN,DOS;
+nonterminal  uno,tres,cuatro;
+
+
+  import_list        ::= import_list import_spec
+                        | empty
+                    ;

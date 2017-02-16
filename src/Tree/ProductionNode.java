@@ -3,15 +3,17 @@ package Tree;
 import java.util.List;
 
 /**
- * Created by Jimmy Ramos on 15-Feb-17.
+ * Created by Jimmy Ramos on 16-Feb-17.
  */
-public class ProductionNode extends  StatementNode {
-    public String nonTerminal;
+public class ProductionNode extends StatementNode {
+    public String nonterminal;
 
-    public List<Production> productions;
+    public List<String> productions;
 
-    public ProductionNode(String nonTerminal, List<Production> productions){
-        this.nonTerminal = nonTerminal;
+    public ProductionNode(String nonterminal, List<String> productions) {
+
+        this.nonterminal = nonterminal;
         this.productions = productions;
     }
+
 }

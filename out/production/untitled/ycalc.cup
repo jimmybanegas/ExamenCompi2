@@ -34,7 +34,8 @@ terminal String ID;
 
 non terminal Statements listOfstatements;
 non terminal StatementNode statement;
-non terminal ArrayList<String> symbols_list;
+non terminal ArrayList<String> symbols_list,productions_list;
+//non terminal StatementNode  , production;
 
     listOfstatements ::= listOfstatements:es statement:e
                     {: es.Statements.add(e); RESULT = es;    :}
@@ -47,6 +48,9 @@ non terminal ArrayList<String> symbols_list;
                  |
                  TERMINAL symbols_list:l SEMI
                  {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
+                 |
+                 ID:i ASSIGNATION productions_list:l SEMI
+                 {:RESULT = new ProductionNode(i,l);:}
                  ;
 
     symbols_list ::= symbols_list:li COMMA ID:i
@@ -58,9 +62,20 @@ non terminal ArrayList<String> symbols_list;
                 {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
                 ;
 
-
-    /* expression ::= expression:la PLUS term:ra
-                        {:RESULT = new SymbolDeclarationNode(la,ra); :}
+    productions_list ::= productions_list:li ID:e
+                         {:RESULT = new ArrayList<>();
+                            RESULT.addAll((Collection)li);
+                            RESULT.add(e);:}
                     |
-                    term:t
-                        {:RESULT = t; :}; */
+                    ID:i
+                        {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
+                    |
+                    productions_list:le PIPE
+                          {:RESULT = new ArrayList<>();
+                                 RESULT.addAll((Collection)le); :}
+                    ;
+
+
+
+
+

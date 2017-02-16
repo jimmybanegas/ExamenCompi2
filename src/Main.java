@@ -36,7 +36,7 @@ public class Main {
 
       String json = gson.toJson(result);
 
-      System.out.println();
+      System.out.println(json);
     } catch (Exception e) {
       /* do cleanup here -- possibly rethrow e */
       e.printStackTrace();
