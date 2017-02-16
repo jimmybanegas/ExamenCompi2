@@ -109,16 +109,18 @@ dec_int_id = [A-Za-z_][A-Za-z_0-9]*
 <YYINITIAL> {
    
     /* Return the token SEMI declared in the class sym that was found. */
-    ";"                { return symbol(sym.SEMI); }
-   
+
     /* Print the token found that was declared in the class sym and then
        return it. */
-    "+"                { System.out.print(" + "); return symbol(sym.PLUS); }
-    "-"                { System.out.print(" - "); return symbol(sym.MINUS); }
-    "*"                { System.out.print(" * "); return symbol(sym.TIMES); }
-    "/"                { System.out.print(" / "); return symbol(sym.DIVIDE); }
-    "("                { System.out.print(" ( "); return symbol(sym.LPAREN); }
-    ")"                { System.out.print(" ) "); return symbol(sym.RPAREN); }
+    "terminal"         { return symbol(sym.TERMINAL); }
+    "nonterminal"      { return symbol(sym.NONTERMINAL); }
+    "::="              { return symbol(sym.ASSIGNATION); }
+    ":"                { return symbol(sym.COLON); }
+    "|"                { return symbol(sym.PIPE); }
+    ","                { return symbol(sym.COMMA); }
+    ";"                { return symbol(sym.SEMI); }
+
+
    
     /* If an integer is found print it out, return the token NUMBER
        that represents an integer and the value of the integer that is

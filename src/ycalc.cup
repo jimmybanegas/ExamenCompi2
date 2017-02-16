@@ -30,44 +30,30 @@ parser code {:
     }
 :};
 
-terminal           SEMI, PLUS, MINUS, LPAREN, RPAREN;
-terminal String   NUMBER;
-terminal           EQUALS, PRINT;
-terminal String    ID;
+terminal        NONTERMINAL, TERMINAL, ASSIGNATION ,SEMI, COMMA, PIPE, COLON ;
+terminal String ID;
 
-non terminal EcuationsNode ecuations;
-non terminal EcuationNode ecuacion;
-non terminal ExpressionNode  term;
-non terminal ExpressionNode expression;
+non terminal Statements listOfstatements;
+non terminal StatementNode statement;
 
-    ecuations ::= ecuations:es ecuacion:e
-                    {: es.Ecuations.add(e); RESULT = es;    :}
+    listOfstatements ::= listOfstatements:es statement:e
+                    {: es.Statements.add(e); RESULT = es;    :}
                     |
-                    {:RESULT = new EcuationsNode();:} ;
+                    {:RESULT = new Statements();:} ;
 
-    ecuacion ::= PRINT expression:e SEMI
-                 {: System.out.println(e.GetValue()); :}
-                 |
-                 expression:le EQUALS expression:re SEMI
-                 {:RESULT = new EcuationNode(le,re);:}
+    statement ::= symbols_list:le EQUALS symbols_list:re SEMI
+                 {:RESULT = new StatementNode(le,re);:}
                  ;
 
-    expression ::= expression:la PLUS term:ra
-                    {:RESULT = new AdditionNode(la,ra); :}
-                |
-                expression:l MINUS term:r
-                    {:RESULT = new SubstractionNode(l,r); :}
+    symbols_list ::= symbols_list:la PLUS term:ra
+                    {:RESULT = new SymbolDeclarationNode(la,ra); :}
                 |
                 term:t
                     {:RESULT = t; :}
                  ;
 
-    term ::= NUMBER:n
-            {: RESULT = new Term(n); :}
-            |
-            ID:i
-                    {: RESULT = new Term(i);  :}
-            |
-            LPAREN expression:ex RPAREN
-                    {: RESULT = ex; :}
-             ;
+     expression ::= expression:la PLUS term:ra
+                        {:RESULT = new SymbolDeclarationNode(la,ra); :}
+                    |
+                    term:t
+                        {:RESULT = t; :};
