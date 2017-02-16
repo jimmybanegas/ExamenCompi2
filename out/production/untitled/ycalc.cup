@@ -67,13 +67,22 @@ non terminal ArrayList<String> symbols_list,productions_list,optional_production
                 ;
 
     productions_list ::= productions_list:li ID:e
-                         {:RESULT = new ArrayList<>();
-                            RESULT.addAll(li);
-                            RESULT.add(e);:}
+                     {:RESULT = new ArrayList<>();
+                        RESULT.addAll(li);
+                        RESULT.add(e);:}
+                    | productions_list:li ID:e COLON ID:label
+                       {:RESULT = new ArrayList<>();
+                          RESULT.addAll(li);
+                          RESULT.add(e +":"+ label);:}
                     |
                     ID:i
                         {:RESULT = new ArrayList<>();
-                          RESULT.add(i);:}                    ;
+                          RESULT.add(i);:}
+                    |
+                    ID:i COLON ID:label
+                        {:RESULT = new ArrayList<>();
+                          RESULT.add(i + ":"+ label);:}
+                         ;
 
     optional_productions_list ::= PIPE productions_list:le
                              {:RESULT = new ArrayList<>();
