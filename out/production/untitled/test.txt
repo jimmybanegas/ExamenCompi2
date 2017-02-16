@@ -1,1 +1,1 @@
-terminal  SATAN;
+terminal  SATAN,DOS;

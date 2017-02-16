@@ -49,9 +49,15 @@ non terminal ArrayList<String> symbols_list;
                  {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
                  ;
 
-    symbols_list ::= ID:i
+    symbols_list ::= symbols_list:li COMMA ID:i
+                {:RESULT = new ArrayList<>();
+                    RESULT.addAll((Collection)li);
+                    RESULT.add(i); :}
+                |
+                ID:i
                 {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
-                 ;
+                ;
+
 
     /* expression ::= expression:la PLUS term:ra
                         {:RESULT = new SymbolDeclarationNode(la,ra); :}
