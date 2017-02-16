@@ -9,11 +9,11 @@ import java.util.Collection;
  * Created by Jimmy Ramos on 15-Feb-17.
  */
 public class Statements {
- //   public ArrayList<Production> Statementss = new ArrayList<>();
- //   public Production p = new Production("","");
 
 
-   // public ArrayList<StatementNode> Statements = new ArrayList<>((Collection<Production>) p);
+
+//    public ArrayList<ArrayList<String>> Statementss = new ArrayList<>().addAll();
+
   public ArrayList<StatementNode> Statements = new ArrayList<>();
 
 }

@@ -34,7 +34,7 @@ terminal String ID;
 
 non terminal Statements listOfstatements;
 non terminal StatementNode statement;
-non terminal ArrayList<String> symbols_list,productions_list;
+non terminal ArrayList<String> symbols_list,productions_list,optional_productions_list;
 //non terminal StatementNode  , production;
 
     listOfstatements ::= listOfstatements:es statement:e
@@ -49,8 +49,12 @@ non terminal ArrayList<String> symbols_list,productions_list;
                  TERMINAL symbols_list:l SEMI
                  {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
                  |
-                 ID:i ASSIGNATION productions_list:l SEMI
-                 {:RESULT = new ProductionNode(i,l);:}
+                 ID:i ASSIGNATION productions_list:l optional_productions_list:le SEMI
+                 {:  ArrayList<ArrayList<String>> productions = new ArrayList<>();
+                     productions.add(l);
+                     productions.add(le);
+
+                    RESULT = new ProductionNode(i, productions); :}
                  ;
 
     symbols_list ::= symbols_list:li COMMA ID:i
@@ -64,16 +68,17 @@ non terminal ArrayList<String> symbols_list,productions_list;
 
     productions_list ::= productions_list:li ID:e
                          {:RESULT = new ArrayList<>();
-                            RESULT.addAll((Collection)li);
+                            RESULT.addAll(li);
                             RESULT.add(e);:}
                     |
                     ID:i
-                        {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
-                    |
-                    productions_list:le PIPE
-                          {:RESULT = new ArrayList<>();
-                                 RESULT.addAll((Collection)le); :}
-                    ;
+                        {:RESULT = new ArrayList<>();
+                          RESULT.add(i);:}                    ;
+
+    optional_productions_list ::= PIPE productions_list:le
+                             {:RESULT = new ArrayList<>();
+                               RESULT.addAll((Collection)le); :}
+                         ;
 
 
 
