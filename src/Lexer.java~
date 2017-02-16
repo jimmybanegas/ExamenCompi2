@@ -72,7 +72,8 @@ class Lexer implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\2\2\3\3\1\4\1\5\1\6\1\7"+
-    "\2\3\1\0\2\3\1\10\10\3\1\11\3\3\1\12";
+    "\2\3\1\0\1\3\1\10\1\11\10\3\1\12\3\3"+
+    "\1\13";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[30];
@@ -661,43 +662,47 @@ class Lexer implements java_cup.runtime.Scanner {
           case 1: 
             { throw new Error("Illegal character <"+yytext()+">");
             }
-          case 11: break;
+          case 12: break;
           case 2: 
             { /* just skip what was found, do nothing */
             }
-          case 12: break;
+          case 13: break;
           case 3: 
             { return symbol(sym.ID, yytext());
             }
-          case 13: break;
+          case 14: break;
           case 4: 
             { return symbol(sym.COLON);
             }
-          case 14: break;
+          case 15: break;
           case 5: 
             { return symbol(sym.PIPE);
             }
-          case 15: break;
+          case 16: break;
           case 6: 
             { return symbol(sym.COMMA);
             }
-          case 16: break;
+          case 17: break;
           case 7: 
             { return symbol(sym.SEMI);
             }
-          case 17: break;
-          case 8: 
-            { return symbol(sym.ASSIGNATION);
-            }
           case 18: break;
-          case 9: 
-            { return symbol(sym.TERMINAL);
+          case 8: 
+            { return symbol(sym.NON);
             }
           case 19: break;
-          case 10: 
-            { return symbol(sym.NONTERMINAL);
+          case 9: 
+            { return symbol(sym.ASSIGNATION);
             }
           case 20: break;
+          case 10: 
+            { return symbol(sym.TERMINAL);
+            }
+          case 21: break;
+          case 11: 
+            { return symbol(sym.NONTERMINAL);
+            }
+          case 22: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

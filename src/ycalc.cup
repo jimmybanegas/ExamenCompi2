@@ -29,13 +29,13 @@ parser code {:
     }
 :};
 
-terminal        NONTERMINAL, TERMINAL, ASSIGNATION ,SEMI, COMMA, PIPE, COLON ;
+terminal        NON, NONTERMINAL, TERMINAL, ASSIGNATION ,SEMI, COMMA, PIPE, COLON ;
 terminal String ID;
 
 non terminal Statements listOfstatements;
 non terminal StatementNode statement;
-non terminal ArrayList<String> symbols_list,productions_list,optional_productions_list;
-//non terminal StatementNode  , production;
+non terminal ArrayList<String> symbols_list,productions_list,optional_productions_list, optional_production;
+non terminal String symbol_type;
 
     listOfstatements ::= listOfstatements:es statement:e
                     {: es.Statements.add(e); RESULT = es;    :}
@@ -43,18 +43,30 @@ non terminal ArrayList<String> symbols_list,productions_list,optional_production
                     {:RESULT = new Statements();:}
                     ;
 
-    statement ::= NONTERMINAL symbols_list:l SEMI
-                 {:RESULT = new SymbolDeclarationNode("NONTERMINAL","Object",l);:}
+    statement ::= NONTERMINAL symbol_type:type symbols_list:l SEMI
+                 {:RESULT = new SymbolDeclarationNode("NONTERMINAL",type,l);:}
+                 |
+                 NON TERMINAL symbol_type:type symbols_list:l SEMI
+                      {:RESULT = new SymbolDeclarationNode("NONTERMINAL",type,l);:}
+                      |
+                 TERMINAL symbol_type:type symbols_list:l SEMI
+                    {:RESULT = new SymbolDeclarationNode("TERMINAL",type,l);:}
+                 |
+                 NONTERMINAL symbols_list:l SEMI
+                      {:RESULT = new SymbolDeclarationNode("NONTERMINAL","Object",l);:}
+                 |
+                 NON TERMINAL symbols_list:l SEMI
+                           {:RESULT = new SymbolDeclarationNode("NONTERMINAL","Object",l);:}
                  |
                  TERMINAL symbols_list:l SEMI
-                 {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
+                      {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
                  |
                  ID:i ASSIGNATION productions_list:l optional_productions_list:le SEMI
-                 {:  ArrayList<ArrayList<String>> productions = new ArrayList<>();
-                     productions.add(l);
-                     productions.add(le);
+                        {:  ArrayList<ArrayList<String>> productions = new ArrayList<>();
+                         productions.add(l);
+                         productions.add(le);
 
-                    RESULT = new ProductionNode(i, productions); :}
+                         RESULT = new ProductionNode(i, productions); :}
                  ;
 
     symbols_list ::= symbols_list:li COMMA ID:i
@@ -66,14 +78,18 @@ non terminal ArrayList<String> symbols_list,productions_list,optional_production
                 {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
                 ;
 
+    symbol_type ::= ID:i
+                    {: RESULT = i;  :}
+                   ;
+
     productions_list ::= productions_list:li ID:e
-                     {:RESULT = new ArrayList<>();
-                        RESULT.addAll(li);
-                        RESULT.add(e);:}
+                        {:RESULT = new ArrayList<>();
+                          RESULT.addAll(li);
+                          RESULT.add(e);:}
                     | productions_list:li ID:e COLON ID:label
                        {:RESULT = new ArrayList<>();
-                          RESULT.addAll(li);
-                          RESULT.add(e +":"+ label);:}
+                         RESULT.addAll(li);
+                         RESULT.add(e +":"+ label);:}
                     |
                     ID:i
                         {:RESULT = new ArrayList<>();
@@ -84,10 +100,28 @@ non terminal ArrayList<String> symbols_list,productions_list,optional_production
                           RESULT.add(i + ":"+ label);:}
                          ;
 
-    optional_productions_list ::= PIPE productions_list:le
+    optional_productions_list ::= optional_productions_list:li PIPE productions_list:le
                              {:RESULT = new ArrayList<>();
-                               RESULT.addAll((Collection)le); :}
-                         ;
+
+                               if(li != null){
+                                  le.addAll(li);
+                               }
+
+                               RESULT.addAll((Collection)le);
+                             :}
+                              |
+                              {:RESULT = new ArrayList<>(); :}
+                              ;
+
+     optional_production ::= PIPE productions_list:le
+                       {:RESULT = new ArrayList<>();
+
+                                       RESULT.addAll((Collection)le);
+                                     :}
+                      |
+                      {:RESULT = new ArrayList<>(); :}
+                      ;
+
 
 
 

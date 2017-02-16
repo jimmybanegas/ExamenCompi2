@@ -109,6 +109,7 @@ dec_int_id = [A-Za-z_][A-Za-z_0-9]*
        return it. */
     "terminal"         { return symbol(sym.TERMINAL); }
     "nonterminal"      { return symbol(sym.NONTERMINAL); }
+    "non"              { return symbol(sym.NON); }
     "::="              { return symbol(sym.ASSIGNATION); }
     ":"                { return symbol(sym.COLON); }
     "|"                { return symbol(sym.PIPE); }

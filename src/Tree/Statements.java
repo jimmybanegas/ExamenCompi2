@@ -10,10 +10,5 @@ import java.util.Collection;
  */
 public class Statements {
 
-
-
-//    public ArrayList<ArrayList<String>> Statementss = new ArrayList<>().addAll();
-
-  public ArrayList<StatementNode> Statements = new ArrayList<>();
-
+      public ArrayList<StatementNode> Statements = new ArrayList<>();
 }
