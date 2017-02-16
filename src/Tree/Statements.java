@@ -7,5 +7,5 @@ import java.util.ArrayList;
  * Created by Jimmy Ramos on 15-Feb-17.
  */
 public class Statements {
-    public ArrayList<State> Statements = new ArrayList<>();
+    public ArrayList<StatementNode> Statements = new ArrayList<>();
 }

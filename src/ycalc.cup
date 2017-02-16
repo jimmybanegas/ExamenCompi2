@@ -3,8 +3,7 @@ import java_cup.runtime.*;
 import Tree.*;
 
 parser code {:
-    public Hashtable<String, Integer> variables
-        = new Hashtable<String, Integer>();
+
     public void report_error(String message, Object info) {
 
         StringBuilder m = new StringBuilder("Error");
@@ -35,25 +34,27 @@ terminal String ID;
 
 non terminal Statements listOfstatements;
 non terminal StatementNode statement;
+non terminal ArrayList<String> symbols_list;
 
     listOfstatements ::= listOfstatements:es statement:e
                     {: es.Statements.add(e); RESULT = es;    :}
                     |
-                    {:RESULT = new Statements();:} ;
+                    {:RESULT = new Statements();:}
+                    ;
 
-    statement ::= symbols_list:le EQUALS symbols_list:re SEMI
-                 {:RESULT = new StatementNode(le,re);:}
+    statement ::= NONTERMINAL symbols_list:l SEMI
+                 {:RESULT = new SymbolDeclarationNode("NONTERMINAL","Object",l);:}
+                 |
+                 TERMINAL symbols_list:l SEMI
+                 {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
                  ;
 
-    symbols_list ::= symbols_list:la PLUS term:ra
-                    {:RESULT = new SymbolDeclarationNode(la,ra); :}
-                |
-                term:t
-                    {:RESULT = t; :}
+    symbols_list ::= ID:i
+                {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
                  ;
 
-     expression ::= expression:la PLUS term:ra
+    /* expression ::= expression:la PLUS term:ra
                         {:RESULT = new SymbolDeclarationNode(la,ra); :}
                     |
                     term:t
-                        {:RESULT = t; :};
+                        {:RESULT = t; :}; */

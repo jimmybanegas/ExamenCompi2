@@ -6,33 +6,19 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int MINUS = 3;
-  public static final int PIPE = 14;
-  public static final int COLON = 15;
-  public static final int NUMBER = 6;
-  public static final int SEMI = 12;
+  public static final int PIPE = 7;
+  public static final int COLON = 8;
+  public static final int SEMI = 5;
   public static final int EOF = 0;
-  public static final int PLUS = 2;
-  public static final int NONTERMINAL = 9;
-  public static final int ID = 16;
-  public static final int ASSIGNATION = 11;
-  public static final int COMMA = 13;
-  public static final int TERMINAL = 10;
+  public static final int NONTERMINAL = 2;
+  public static final int ID = 9;
+  public static final int ASSIGNATION = 4;
   public static final int error = 1;
-  public static final int PRINT = 8;
-  public static final int RPAREN = 5;
-  public static final int EQUALS = 7;
-  public static final int LPAREN = 4;
+  public static final int TERMINAL = 3;
+  public static final int COMMA = 6;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "PLUS",
-  "MINUS",
-  "LPAREN",
-  "RPAREN",
-  "NUMBER",
-  "EQUALS",
-  "PRINT",
   "NONTERMINAL",
   "TERMINAL",
   "ASSIGNATION",

@@ -21,6 +21,8 @@
   where test.txt is an test input file for the calculator.
 */
    
+import com.google.gson.Gson;
+
 import java.io.*;
    
 public class Main {
@@ -28,7 +30,13 @@ public class Main {
     /* Start the parser */
     try {
       parser p = new parser(new Lexer(new FileReader("./src/test.txt")));
-      Object result = p.parse().value;      
+      Object result = p.parse().value;
+
+      Gson gson = new Gson();
+
+      String json = gson.toJson(result);
+
+      System.out.println();
     } catch (Exception e) {
       /* do cleanup here -- possibly rethrow e */
       e.printStackTrace();

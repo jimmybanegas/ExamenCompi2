@@ -3,8 +3,7 @@ import java_cup.runtime.*;
 import Tree.*;
 
 parser code {:
-    public Hashtable<String, Integer> variables
-        = new Hashtable<String, Integer>();
+
     public void report_error(String message, Object info) {
 
         StringBuilder m = new StringBuilder("Error");
@@ -30,44 +29,32 @@ parser code {:
     }
 :};
 
-terminal           SEMI, PLUS, MINUS, LPAREN, RPAREN;
-terminal String   NUMBER;
-terminal           EQUALS, PRINT;
-terminal String    ID;
+terminal        NONTERMINAL, TERMINAL, ASSIGNATION ,SEMI, COMMA, PIPE, COLON ;
+terminal String ID;
 
-non terminal EcuationsNode ecuations;
-non terminal EcuationNode ecuacion;
-non terminal ExpressionNode  term;
-non terminal ExpressionNode expression;
+non terminal Statements listOfstatements;
+non terminal StatementNode statement;
+non terminal ArrayList<String> symbols_list;
 
-    ecuations ::= ecuations:es ecuacion:e
-                    {: es.Ecuations.add(e); RESULT = es;    :}
+    listOfstatements ::= listOfstatements:es statement:e
+                    {: es.Statements.add(e); RESULT = es;    :}
                     |
-                    {:RESULT = new EcuationsNode();:} ;
+                    {:RESULT = new Statements();:}
+                    ;
 
-    ecuacion ::= PRINT expression:e SEMI
-                 {: System.out.println(e.GetValue()); :}
+    statement ::= NONTERMINAL symbols_list:l SEMI
+                 {:RESULT = new SymbolDeclarationNode("NONTERMINAL","Object",l);:}
                  |
-                 expression:le EQUALS expression:re SEMI
-                 {:RESULT = new EcuationNode(le,re);:}
+                 TERMINAL symbols_list:l SEMI
+                 {:RESULT = new SymbolDeclarationNode("TERMINAL","Object",l);:}
                  ;
 
-    expression ::= expression:la PLUS term:ra
-                    {:RESULT = new AdditionNode(la,ra); :}
-                |
-                expression:l MINUS term:r
-                    {:RESULT = new SubstractionNode(l,r); :}
-                |
-                term:t
-                    {:RESULT = t; :}
+    symbols_list ::= ID:i
+                {:RESULT = new ArrayList<>(Arrays.asList(i)); :}
                  ;
 
-    term ::= NUMBER:n
-            {: RESULT = new Term(n); :}
-            |
-            ID:i
-                    {: RESULT = new Term(i);  :}
-            |
-            LPAREN expression:ex RPAREN
-                    {: RESULT = ex; :}
-             ;
+    /* expression ::= expression:la PLUS term:ra
+                        {:RESULT = new SymbolDeclarationNode(la,ra); :}
+                    |
+                    term:t
+                        {:RESULT = t; :}; */
