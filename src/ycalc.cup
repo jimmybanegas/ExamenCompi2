@@ -34,7 +34,7 @@ terminal String ID;
 
 non terminal Statements listOfstatements;
 non terminal StatementNode statement;
-non terminal ArrayList<String> symbols_list,productions_list,optional_productions_list, optional_production;
+non terminal ArrayList<String> symbols_list,productions_list,optional_productions_list;
 non terminal String symbol_type;
 
     listOfstatements ::= listOfstatements:es statement:e
@@ -112,16 +112,6 @@ non terminal String symbol_type;
                               |
                               {:RESULT = new ArrayList<>(); :}
                               ;
-
-     optional_production ::= PIPE productions_list:le
-                       {:RESULT = new ArrayList<>();
-
-                                       RESULT.addAll((Collection)le);
-                                     :}
-                      |
-                      {:RESULT = new ArrayList<>(); :}
-                      ;
-
 
 
 

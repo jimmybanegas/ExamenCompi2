@@ -445,10 +445,6 @@ class CUP$parser$actions {
 		RESULT = new ArrayList<>();
 
                                if(li != null){
-                               /* ArrayList productions = new ArrayList<String>();
-                                                              productions.add(li);
-
-                                  le.add( new String(productions.get(0).toString() ));*/
                                   le.addAll(li);
                                }
 
